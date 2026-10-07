@@ -51,7 +51,7 @@ example/                            contains a small synthetic dataset ready to 
 README.md
 ```
 
-1. **`hyperparameter_tuning.m`**: Performs dubject-level hold-out split (70% training / 30% test), then a
+1. **`hyperparameter_tuning.m`**: Performs subject-level hold-out split (70% training / 30% test), then a
    beam-search forward feature selection on the training set based on a unsupervised subject-wise 5-fold CV procedure. Each candidate feature set is scored as the best, over
    k-means, GMM and H-clust, of `mean(CV accuracy for Fat and Protein) x normalized entropy of the cluster proportions`;
    the number of clusters is chosen by maximization of the mean silhouette (k = 2-6). The beam search is regulated by `beamWidth`, `maxFeatures`,`minRelImprovement`,`patience`,`scoreCeiling`.      
