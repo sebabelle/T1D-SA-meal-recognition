@@ -80,7 +80,7 @@ README.md
 | `mahalanobisDistance` | Per-feature Mahalanobis distance between the means of two GMM components |
 | `MacronutrientsSumRankTest` | Wilcoxon rank sum test between two clusters for Fat and Protein|
 | `extractingCGMtracks`, `prctiles_curve` | Extract and plots (spaghetti plot) CGM profiles of a group of meals and returns median and 25th-75th percentile band |
-| `plotPosterior`, `plotMixtures` | Plot the estimated posterior and the observation overlayed on the Gaussian Mixture components |
+| `plotPosterior`, `plotMixtures` | Plot the estimated posterior and each observation overlayed on the Gaussian Mixture components |
 
 ## Input data
 
