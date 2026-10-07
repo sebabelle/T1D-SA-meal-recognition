@@ -79,7 +79,7 @@ README.md
 | `CH_index`, `DB_index` | Calinski-Harabasz and Davies-Bouldin indices (expect z-scored data) |
 | `mahalanobisDistance` | Per-feature Mahalanobis distance between the means of two GMM components |
 | `MacronutrientsSumRankTest` | Wilcoxon rank sum test between two clusters for Fat and Protein|
-| `extractingCGMtracks`, `prctiles_curve` | Extract and plots CGM profiles of a group of meals and returns median and 25th-75th percentile band |
+| `extractingCGMtracks`, `prctiles_curve` | Extract and plots (spaghetti plot) CGM profiles of a group of meals and returns median and 25th-75th percentile band |
 | `plotPosterior`, `plotMixtures` | Plot the estimated posterior and the observation overlayed on the Gaussian Mixture components |
 
 ## Input data
