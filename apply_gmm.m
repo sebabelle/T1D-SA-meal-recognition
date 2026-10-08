@@ -11,4 +11,9 @@ results = detectSAmeals("example/example.csv", ...
     PlotPosterior = true, ...
     PlotMixtures = true);
 
+% ---------- Alternatively ---------- 
+% T = readtable("example/example.csv"); % MATLAB table
+% % Apply the trained model directly to the imported table
+% resultsFromTable = detectSAmeals(T);
+
 results
