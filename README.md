@@ -139,5 +139,6 @@ For `hyperparameter_tuning.m` and `analysis_and_plot_generation.m` the following
 
 Random seeds are fixed with `rng(1)` for reproducibility. 
 
-Note: The results reported in the manuscript were obtained with MATLAB Version 25.2 R2025b Update 4. 
+Note: The results reported in the manuscript were obtained with MATLAB Version 25.2 R2025b Update 4. While the code may work with previous MATLAB releases, older versions may behave differently, which can cause errors or unexpected results.
+
 Results may differ across MATLAB releases or toolbox versions.
