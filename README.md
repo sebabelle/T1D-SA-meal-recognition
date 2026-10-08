@@ -17,14 +17,14 @@ Part of this repository is dedicated to report the code used for **training and 
 
 An **example input file** (`example.csv`) is inside the folder `example\`.
 
-###**Quick start with the example**:
+### Quick start with the example:
 
 1. Open MATLAB in the repository folder.
 2. Run `apply_gmm.m`. By default it applies `gmm_model.mat` to `example.csv` through the function `detectSAmeals`.
 3. The script displays the results, saves them to `example_assignments.csv` inside the folder `example\` and plots the posterior probabilities
    and the fitted mixture components together with the meals.
 
-###**Using your own data**: 
+### Using your own data: 
 1. Prepare a CSV file like `example.csv`, with one row per meal and the columns. Alternatively a MATLAB table can be used.
 
 | Column | Description |
@@ -44,7 +44,7 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
 | 6 | 0.25 | 128.5 | 0.4 |
 | 6 | 0.88 | 70.6 | 0.36 |
 
-2. Call the function `detectSAmeals`
+2. Call the function `detectSAmeals`.
 
 ### Example of function use
 ```matlab
