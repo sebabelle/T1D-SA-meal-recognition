@@ -31,9 +31,10 @@ newTable = readtable(['example\' inputFile]);
 X = table2array(newTable(:,gmm_model.featNames));
 Xz = (X - gmm_model.mu)./gmm_model.sigma;
 
-%% Posterior probability (meals with missing values are not assigned)
+%% Posterior probability
 post = posterior(gmm_model.gm_dist,Xz);
 
+% defining cluster labels
 idxFA = gmm_model.idxFA; idxSA = gmm_model.idxSA;
 postFA = post(:,idxFA);
 postSA = post(:,idxSA);
