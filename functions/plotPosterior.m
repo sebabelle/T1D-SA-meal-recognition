@@ -1,10 +1,11 @@
-function [outputArg1,outputArg2] = plotPosterior(gmm_model,Xz,label)
+function [outputArg1,outputArg2] = plotPosterior(gmm_model,Xz,label,cmap)
 %% Plot: estimated posterior in the 3D feature space
 
 arguments (Input)
     gmm_model % Gaussian Mixture model
     Xz % z-scored observations
     label % assigned labels
+    cmap % color map
 end
 
 post = posterior(gmm_model.gm_dist,Xz);
@@ -15,10 +16,7 @@ postFA = post(:,idxFA);
 defaultColors = get(groot,'defaultAxesColorOrder');
 orange = defaultColors(2,:);   % cluster SA color
 blue   = defaultColors(1,:);   % cluster FA color
-nShades = 256;
-cmap = flipud([linspace(blue(1), orange(1), nShades)', ...
-    linspace(blue(2), orange(2), nShades)', ...
-    linspace(blue(3), orange(3), nShades)']);
+
 
 figure
 scatter3(Xz(:,3),Xz(:,2),Xz(:,1),50,postFA,'filled')

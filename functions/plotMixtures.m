@@ -1,16 +1,14 @@
-function plotMixtures(gmm_model,Xz)
+function plotMixtures(gmm_model,Xz,cmap)
 %% Plot: fitted mixture components and new meals
-% Top row: marginal density of each feature (components weighted by their
-% mixing proportion, dashed = whole mixture). Bottom row: pairs of features
-% with the 1 SD and 2 SD contours of each component. Axes are in z-score
-% units of the training set; dots are the new meals colored by posterior FA.
+% Pairs of features with the 1 SD and 2 SD limits of each component. 
+% Axes are in z-score units of the training set 
+% dots are the new meals (observations) colored by posterior FA.
 
 arguments (Input)
     gmm_model % Gaussian Mixture model
     Xz % z-scored observations
+    cmap % colormap
 end
-
-
 
 
 gm = gmm_model.gm_dist;
@@ -21,11 +19,6 @@ idxSA = gmm_model.idxSA;
 defaultColors = get(groot,'defaultAxesColorOrder');
 orange = defaultColors(2,:);   % cluster SA color
 blue   = defaultColors(1,:);   % cluster FA color
-nShades = 256;
-cmap = flipud([linspace(blue(1), orange(1), nShades)', ...
-    linspace(blue(2), orange(2), nShades)', ...
-    linspace(blue(3), orange(3), nShades)']);
-
 
 compColor = zeros(K,3);
 compColor(idxFA,:) = blue; compColor(idxSA,:) = orange;
@@ -70,7 +63,9 @@ for pp = 1:size(pairs,1)
     grid on
     if pp == size(pairs,1)
         cb = colorbar(ax); cb.Label.String = 'posterior FA';
+        legend('Observations')
     end
+    
 end
-
+sgtitle('2D-visualization of estimated posterior')
 end
