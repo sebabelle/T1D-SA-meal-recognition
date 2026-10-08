@@ -29,7 +29,7 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
    and the fitted mixture components together with the meals.
 
 ### Using your own data: 
-1. Prepare a CSV file like `example.csv`, with one row per meal and the columns. Alternatively a MATLAB table can be used.
+1. Prepare a CSV file like `example.csv` (e.g.,`my_meals.csv`) , with one row per meal and the columns `RaAUC120min`, `TGR50`, `d`, and, optionally `ID`, as reported below. Alternatively a MATLAB table with the same structure can be used.
 
 | Column | Description |
 |---|---|
@@ -46,9 +46,8 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
 | 4 | 0.54 | 70.1 | 0.22 |
 | 5 | 0.66 | 48.0 | 0.001 |
 
-2. Call the function `detectSAmeals()`.
+2. Call the function `detectSAmeals()`. Here are reported some examples:
 
-### Example of function use
 ```matlab
 results = detectSAmeals("my_meals.csv"); % applies to "my_meals.csv" the GMM model, returns a table with assignment results
 results = detectSAmeals("my_meals.csv",OutputFile="my_assignments.csv"); % additionally saves the results in "my_assignments.csv"
@@ -56,9 +55,16 @@ results = detectSAmeals("my_meals.csv",PlotPosterior=true,PlotMixtures=true); % 
 ```
 Note: Optional fields `PlotPosterior` and `PlotMixtures` require `PlotPosterior.m` and `PlotMixtures.m` to be inside `functions` folder.
 
-**Output**: One row per meal with `Posterior_FA`, `Posterior_SA`, `Label` (`FA` or `SA`, maximum posterior) and
+**Output**: `results` contains one row per meal with `Posterior_FA`, `Posterior_SA`, `Label` (`FA` or `SA`, maximum posterior) and
 `Uncertain` (posterior of SA between 0.3 and 0.7). An example of output is reported below.
 Note: data are normalized internally with the mean and SD of the training set used to developed the model.
+
+| Column | Description |
+|---|---|
+| `Posterior_FA`, `Posterior_SA` | Estimated posterior of cluster assignment (`FA` and `SA`) |
+| `Label` | Meal assigned label (`FA` or `SA`) |
+| `Uncertaine` | Flag that return wheter posterior is uncertain (>0.3 & <0.7) |
+| `ID` | Subject identifier (Optional) |
 
 | ID | Posterior_FA | Posterior_SA | Label | Uncertain |
 | ---: | ---: | ---: | :---: | ---: |
