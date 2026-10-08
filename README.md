@@ -7,10 +7,12 @@ Code supporting the manuscript:
 - MATLAB R2025b or newer
 - Statistics and Machine Learning Toolbox
 
-## Ready-to-use model and example of usage
+## Introduction 
 
-This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and an **example input file**
-(`example.csv`) inside the folder `example\`.
+This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\`, the **MATLAB function** `detectSAmeals` to apply the model on unseen meals assigning them to a class: slow-absorption `SA` or fast-absorption `FA`. 
+## How to use the model and example of usage
+
+An **example input file** (`example.csv`) is inside the folder `example\`.
 
 **Quick start with the example**:
 
