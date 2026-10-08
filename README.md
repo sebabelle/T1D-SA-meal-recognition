@@ -116,7 +116,7 @@ To reproduce the results reported in the manuscript: run 2->3. To use the traine
 | `extractingCGMtracks`, `prctiles_curve` | Extract and plots (spaghetti plot) CGM profiles of a group of meals and returns median and 25th-75th percentile band |
 | `plotPosterior`, `plotMixtures` | Plot the estimated posterior and each observation overlayed on the Gaussian Mixture components |
 
-## Input data
+## Input data required for model training and testing
 
 For `hyperparameter_tuning.m` and `analysis_and_plot_generation.m` the following is needed:
 
