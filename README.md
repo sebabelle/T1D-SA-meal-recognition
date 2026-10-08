@@ -92,7 +92,7 @@ README.md
 ```
 1. **`detectSAmeals.m`** (example of usage: `apply_gmm.m`): Loads `gmm_model.mat` and a CSV (or MATLAB table) of new meals, normalizes them with the training mean and SD,
    and returns the posterior probabilities, the label (`FA` / `SA`) and an `Uncertain` flag (posterior of SA within
-   0.3-0.7). Optionally `PlotPosterior` and `PlotMixtures`plot the estimated posterior onto the 3D feature space and plots the fitted mixture components (marginal densities and 1-2 SD contours) with the new meals. Optionally, results can be saved as CSV.
+   0.3-0.7). Optionally `PlotPosterior` and `PlotMixtures`plot the estimated posterior onto the 3D feature space and plots the fitted mixture components (1-2 SD contours) with the new meals. Optionally, results can be saved as CSV.
 2. **`hyperparameter_tuning.m`**: Performs subject-level hold-out split (70% training / 30% test), then a
    beam-search forward feature selection on the training set based on a unsupervised subject-wise 5-fold CV procedure. Each candidate feature set is scored as the best, over
    k-means, GMM and H-clust, of `mean(CV accuracy for Fat and Protein) x normalized entropy of the cluster proportions`;
