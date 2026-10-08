@@ -232,7 +232,7 @@ fprintf('  %-18s %8.4f\n', 'MC-rank agreement:', mc_agreement);
 fprintf('  %-18s %8.4f\n', 'Entropy:',           entropy);
 fprintf('  %-18s %8.4f\n', 'Score:',         h_score);
 fprintf('==========================\n');
-fprintf('Moving to H-clust...\n\n');
+fprintf('Press any button to perform NMI analysis...\n\n');
 pause()
 clc
 
