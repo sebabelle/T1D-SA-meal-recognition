@@ -9,24 +9,32 @@ Code supporting the manuscript:
 
 ## Ready-to-use model and example of usage
 
-This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) and an **example input file**
-(`example.csv`).
+This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and an **example input file**
+(`example.csv`) inside the folder `example\`.
 
-**Quick start**
+**Quick start with the example**
 
 1. Open MATLAB in the repository folder.
-2. Run `apply_gmm.m`. By default it applies `gmm_model.mat` to `example.csv`.
-3. The script displays the results, saves them to `example_assignments.csv` and plots the posterior probabilities
+2. Run `apply_gmm.m`. By default it applies `gmm_model.mat` to `example.csv` through the function `detectSAmeals`.
+3. The script displays the results, saves them to `example_assignments.csv` inside the folder `example\` and plots the posterior probabilities
    and the fitted mixture components together with the meals.
 
-**Using your own data**: prepare a CSV like `example.csv`, with one row per meal and the columns
+**Using your own data**: 
+1. Prepare a CSV file like `example.csv`, with one row per meal and the columns. Alternatively a MATLAB table can be used.
 
 | Column | Description |
 |---|---|
 | `RaAUC120min`, `TGR50`, `d` | Clustering features, **not normalized**, computed as in the manuscript |
-| `ID` | Subject identifier |
+| `ID` | Subject identifier (Optional) |
 
-then set `inputFile` and `outputFile` at the top of `apply_gmm.m`.
+2. Call the function `detectSAmeals`
+
+### Example of function use
+```matlab
+results = detectSAmeals("my_meals.csv"); % applies to "my_meals.csv" the GMM model, returns a table with assignment results
+results = detectSAmeals("my_meals.csv", OutputFile="my_assignments.csv"); % additionally saves the results in "my_assignments.csv"
+results = detectSAmeals("my_meals.csv",PlotPosterior=true,PlotMixtures=true); % additionally plot posterior and 2D feature space overlayed to trained mixtures
+```
 
 **Output**: one row per meal with `Posterior_FA`, `Posterior_SA`, `Label` (`FA` or `SA`, maximum posterior) and
 `Uncertain` (posterior of SA between 0.3 and 0.7).
@@ -41,17 +49,21 @@ It may be regenerated with `analysis_and_plot_generation.m`.
 ## Repository structure
 
 ```
-hyperparameter_tuning.m             1. selects features, clustering algorithm and number of clusters
-analysis_and_plot_generation.m      2. trains and tests the Gaussian mixture model, performs analyses and generates the plots presented in the manuscript
-apply_gmm.m                         3. example of use of the trained Gaussian mixture model to detect SA meals and visualization examples
+detectSAmeals.m                     1. function: applies the trained GMM to new meals (CSV or MATLAB table)
+apply_gmm.m                         2. example of function call
+hyperparameter_tuning.m             3. selects features, clustering algorithm and number of clusters
+analysis_and_plot_generation.m      4. trains and tests the Gaussian mixture model, performs analyses and generates the plots presented in the manuscript
+
 functions/                          helper functions
 model/                              contains the trained and ready-to-use Gaussian mixture model
 example/                            contains a small synthetic dataset ready to be tested on apply_gmm.m
  
 README.md
 ```
-
-1. **`hyperparameter_tuning.m`**: Performs subject-level hold-out split (70% training / 30% test), then a
+1. **`detectSAmeals.m`** (example of usage: `apply_gmm.m`): Loads `gmm_model.mat` and a CSV (or MATLAB table) of new meals, normalizes them with the training mean and SD,
+   and returns the posterior probabilities, the label (`FA` / `SA`) and an `Uncertain` flag (posterior of SA within
+   0.3-0.7). Optionally `PlotPosterior` and `PlotMixtures`plot the estimated posterior onto the 3D feature space and plots the fitted mixture components (marginal densities and 1-2 SD contours) with the new meals. Optionally, results can be saved as CSV.
+2. **`hyperparameter_tuning.m`**: Performs subject-level hold-out split (70% training / 30% test), then a
    beam-search forward feature selection on the training set based on a unsupervised subject-wise 5-fold CV procedure. Each candidate feature set is scored as the best, over
    k-means, GMM and H-clust, of `mean(CV accuracy for Fat and Protein) x normalized entropy of the cluster proportions`;
    the number of clusters is chosen by maximization of the mean silhouette (k = 2-6). The beam search is regulated by `beamWidth`, `maxFeatures`,`minRelImprovement`,`patience`,`scoreCeiling`.      
@@ -63,9 +75,8 @@ README.md
    analyses, assigns the test subjects through the posterior probability and generates the figures reported in the manuscript
    (3D scatter of the posterior, boxcharts, median CGM profiles). Saves `gmm_model.mat` (the Gaussian Mixture model), `assignments.mat` (meal labels assigned by the GMM),
    `posterior.mat` (posterior probability of cluster membership).
-4. **`apply_gmm.m`**: Loads `gmm_model.mat` and a CSV of new meals to classify, normalizes them with the training mean and SD,
-   and returns the posterior probabilities, the label (`FA` / `SA`) and an `Uncertain` flag (posterior of `SA` / `FA` within
-   0.3-0.7). Results are saved as CSV.
+
+To reproduce the results reported in the manuscript: run 2->3. To use the trained GMM model to classify new meals: run 1 only.
 
 
  ### Functions
