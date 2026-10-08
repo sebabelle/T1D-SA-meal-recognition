@@ -131,7 +131,7 @@ For `hyperparameter_tuning.m` and `analysis_and_plot_generation.m` the following
 - `PARAMETERS_notNormalized.csv`: one row per meal, with an `ID` column (subject identifier), the clustering
   parameters (including, at least, `RaAUC120min`, `TGR50`, `d`) and the macronutrient variables `Fat_amt` (Fat load) and `Prot_amt` (Protein load),
    expressed in grams.
-- `Dataset/`: one `.mat` file per meal, each with a struct `data` containing `t_CGM` (time grid, [min]) and `CGM` (CGM samples, [mg/dl]). Must contain data 1 hour before the mealtime up to 4 hours after. The files must be in the same order as the rows of the CSV.
+- `Dataset/`: one `.mat` file per meal, each with a struct `data` containing `t_CGM` (time grid, [min]) and `CGM` (CGM samples, [mg/dl]). Must contain data within 1 hour before the mealtime up to 4 hours after. `t_CGM` is centered around mealtime (i.e., `t_CGM(mealtime)=0`) The files must be in the same order as the rows of the CSV.
 
 ## Reproducibility
 
