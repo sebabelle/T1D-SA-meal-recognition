@@ -11,7 +11,8 @@ Code supporting the manuscript:
 
 This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and the **MATLAB function** `detectSAmeals` to apply the model on new meals assigning them to a class: slow-absorption `SA` or fast-absorption `FA`.
 Part of this repository is dedicated to report the code used for **training and testing** of the **Gaussian mixture model**.
-For the repository file details see [Repository Structure](https://github.com/sebabelle/T1D-SA-meal-recognition/blob/main/README.md#repository-structure)
+
+For a full description of the repository and its files see [Repository Structure](https://github.com/sebabelle/T1D-SA-meal-recognition/blob/main/README.md#repository-structure).
 
 ## How to use the model and example of usage
 
