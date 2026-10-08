@@ -27,7 +27,7 @@ This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`
 | `RaAUC120min`, `TGR50`, `d` | Clustering features, **not normalized**, computed as in the manuscript |
 | `ID` | Subject identifier (Optional) |
 
-## `example.csv`
+### `example.csv`
 | ID | RaAUC120min | TGR50 | d |
 | ---: | ---: | ---: | ---: |
 | 1 | 0.31 | 130.1 | 0.24 |
@@ -49,8 +49,8 @@ results = detectSAmeals("my_meals.csv", OutputFile="my_assignments.csv"); % addi
 results = detectSAmeals("my_meals.csv",PlotPosterior=true,PlotMixtures=true); % additionally plot posterior and 2D feature space overlayed to trained mixtures
 ```
 
-**Output**: one row per meal with `Posterior_FA`, `Posterior_SA`, `Label` (`FA` or `SA`, maximum posterior) and
-`Uncertain` (posterior of SA between 0.3 and 0.7).
+**Output**: One row per meal with `Posterior_FA`, `Posterior_SA`, `Label` (`FA` or `SA`, maximum posterior) and
+`Uncertain` (posterior of SA between 0.3 and 0.7). An example of output is reported below.
 Note: data are normalized internally with the mean and SD of the training set used to developed the model.
 
 | ID | Posterior_FA | Posterior_SA | Label | Uncertain |
