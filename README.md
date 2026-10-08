@@ -27,6 +27,19 @@ This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`
 | `RaAUC120min`, `TGR50`, `d` | Clustering features, **not normalized**, computed as in the manuscript |
 | `ID` | Subject identifier (Optional) |
 
+## `example.csv`
+| ID | RaAUC120min | TGR50 | d |
+| ---: | ---: | ---: | ---: |
+| 1 | 0.31 | 130.1 | 0.24 |
+| 1 | 0.48 | 95.2 | 0.26 |
+| 1 | 0.46 | 112.1 | 0.23 |
+| 3 | 0.62 | 70.5 | 0.05 |
+| 3 | 0.74 | 55.9 | 0.35 |
+| 4 | 0.54 | 70.1 | 0.22 |
+| 5 | 0.66 | 48.0 | 0.001 |
+| 6 | 0.25 | 128.5 | 0.4 |
+| 6 | 0.88 | 70.6 | 0.36 |
+
 2. Call the function `detectSAmeals`
 
 ### Example of function use
@@ -40,11 +53,21 @@ results = detectSAmeals("my_meals.csv",PlotPosterior=true,PlotMixtures=true); % 
 `Uncertain` (posterior of SA between 0.3 and 0.7).
 Note: data are normalized internally with the mean and SD of the training set used to developed the model.
 
+| ID | Posterior_FA | Posterior_SA | Label | Uncertain |
+| ---: | ---: | ---: | :---: | ---: |
+| 1 | 0.000333 | 0.999667 | SA | 0 |
+| 1 | 0.314160 | 0.685840 | SA | 1 |
+| 1 | 0.068700 | 0.931300 | SA | 0 |
+| 3 | 0.998767 | 0.001233 | FA | 0 |
+| 3 | 0.999784 | 0.000216 | FA | 0 |
+| 4 | 0.966883 | 0.033117 | FA | 0 |
+| 5 | 0.999963 | 0.000037 | FA | 0 |
+| 6 | 0.000024 | 0.999976 | SA | 0 |
+| 6 | 0.999968 | 0.000032 | FA | 0 |
+
 **About the model**: The model is a GMM with two components with diagonal shared covariance, and regularization 0.01. `gmm_model.mat` contains the fitted `gmdistribution` MATLAB object, the feature names, the training
 mean/SD used for normalization, the cluster indices and the uncertainty thresholds. It contains no participant data.
 It may be regenerated with `analysis_and_plot_generation.m`.
-
-
 
 ## Repository structure
 
