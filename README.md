@@ -27,7 +27,6 @@ This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`
 | `RaAUC120min`, `TGR50`, `d` | Clustering features, **not normalized**, computed as in the manuscript |
 | `ID` | Subject identifier (Optional) |
 
-### `example.csv`
 | ID | RaAUC120min | TGR50 | d |
 | ---: | ---: | ---: | ---: |
 | 1 | 0.31 | 130.1 | 0.24 |
