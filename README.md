@@ -14,6 +14,10 @@ For more details see [Reproducibility Notes](https://github.com/sebabelle/T1D-SA
 This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and the **MATLAB function** `detectSAmeals` to apply the model on new meals assigning them to a class: slow-absorption `SA` or fast-absorption `FA`.
 Part of this repository is dedicated to report the code used for **training and testing** of the **Gaussian mixture model**.
 
+**About the model**: The model is a GMM with two components with diagonal shared covariance, and regularization 0.01. `gmm_model.mat` contains the fitted `gmdistribution` MATLAB object, the feature names, the training
+mean/SD used for normalization, the cluster indices and the uncertainty thresholds. It contains no participant data.
+It may be regenerated with `analysis_and_plot_generation.m`.
+
 For a full description of the repository and its files see [Repository Structure](https://github.com/sebabelle/T1D-SA-meal-recognition/blob/main/README.md#repository-structure).
 
 ## How to use the model and example of usage
@@ -76,10 +80,6 @@ Note: data are normalized internally with the mean and SD of the training set us
 | 4 | 0.966883 | 0.033117 | FA | 0 |
 | 5 | 0.999963 | 0.000037 | FA | 0 |
 
-
-**About the model**: The model is a GMM with two components with diagonal shared covariance, and regularization 0.01. `gmm_model.mat` contains the fitted `gmdistribution` MATLAB object, the feature names, the training
-mean/SD used for normalization, the cluster indices and the uncertainty thresholds. It contains no participant data.
-It may be regenerated with `analysis_and_plot_generation.m`.
 
 ## Repository structure
 
