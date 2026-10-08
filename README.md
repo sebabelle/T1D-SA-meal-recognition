@@ -15,7 +15,7 @@ This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`
 Part of this repository is dedicated to report the code used for **training and testing** of the **Gaussian mixture model**.
 
 **About the model**: The model is a GMM with two components with diagonal shared covariance, and regularization 0.01. `gmm_model.mat` contains the fitted `gmdistribution` MATLAB object, the feature names, the training
-mean/SD used for normalization, the cluster indices and the uncertainty thresholds. It contains no participant data.
+mean/SD used for normalization, the cluster indices and the uncertainty thresholds. It contains no training data.
 It may be regenerated with `analysis_and_plot_generation.m`.
 
 For a full description of the repository and its files see [Repository Structure](https://github.com/sebabelle/T1D-SA-meal-recognition/blob/main/README.md#repository-structure).
