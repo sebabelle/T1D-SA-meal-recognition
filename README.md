@@ -12,7 +12,7 @@ Code supporting the manuscript:
 This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and an **example input file**
 (`example.csv`) inside the folder `example\`.
 
-**Quick start with the example**
+**Quick start with the example**:
 
 1. Open MATLAB in the repository folder.
 2. Run `apply_gmm.m`. By default it applies `gmm_model.mat` to `example.csv` through the function `detectSAmeals`.
