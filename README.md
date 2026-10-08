@@ -6,7 +6,7 @@ Code supporting the manuscript:
 ## Requirements
 - MATLAB R2025b or newer
 - Statistics and Machine Learning Toolbox
-For more details see
+For more details see [Reproducibility Notes](https://github.com/sebabelle/T1D-SA-meal-recognition/blob/main/README.md#reproducibility).
 
 ## Introduction 
 
@@ -136,4 +136,6 @@ For `hyperparameter_tuning.m` and `analysis_and_plot_generation.m` the following
 
 ## Reproducibility
 
-Random seeds are fixed with `rng(1)` for reproducibility. Results may differ slightly across MATLAB releases or toolbox versions.
+Random seeds are fixed with `rng(1)` for reproducibility. 
+Note: The results reported in the manuscript were obtained with MATLAB Version 25.2 R2025b Update 4. 
+Results may differ across MATLAB releases or toolbox versions.
