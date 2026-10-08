@@ -90,23 +90,24 @@ example/                            contains a small synthetic dataset ready to 
  
 README.md
 ```
-1. **`detectSAmeals.m`** (example of usage: `apply_gmm.m`): Loads `gmm_model.mat` and a CSV (or MATLAB table) of new meals, normalizes them with the training mean and SD,
+1. **`detectSAmeals.m`**: Function that applied the trained GMM to a new dataset. Loads `gmm_model.mat` and a CSV (or MATLAB table) of new meals, normalizes them with the training mean and SD,
    and returns the posterior probabilities, the label (`FA` / `SA`) and an `Uncertain` flag (posterior of SA within
    0.3-0.7). Optionally `PlotPosterior` and `PlotMixtures`plot the estimated posterior onto the 3D feature space and plots the fitted mixture components (1-2 SD contours) with the new meals. Optionally, results can be saved as CSV.
-2. **`hyperparameter_tuning.m`**: Performs subject-level hold-out split (70% training / 30% test), then a
+2. **`apply_gmm.m`**: Reports an example of usage of the function `detectSAmeals.m`
+3. **`hyperparameter_tuning.m`**: Performs subject-level hold-out split (70% training / 30% test), then a
    beam-search forward feature selection on the training set based on a unsupervised subject-wise 5-fold CV procedure. Each candidate feature set is scored as the best, over
    k-means, GMM and H-clust, of `mean(CV accuracy for Fat and Protein) x normalized entropy of the cluster proportions`;
    the number of clusters is chosen by maximization of the mean silhouette (k = 2-6). The beam search is regulated by `beamWidth`, `maxFeatures`,`minRelImprovement`,`patience`,`scoreCeiling`.      
    To reproduce the result reported in the manuscript, use `beamWidth=5`,
    `maxFeatures=7`, `minRelImprovement=0.005`, `patience=1`, `scoreCeiling=0.9999`.
    The agreement between algorithms is computed (NMI). The test set is not used.
-3. **`analysis_and_plot_generation.m`**: Using the selected features, fits the GMM  on the training subjects, computes the CV accuracy,
+4. **`analysis_and_plot_generation.m`**: Using the selected features, fits the GMM  on the training subjects, computes the CV accuracy,
    entropy, Calinski-Harabasz and Davies-Bouldin indices, Wilcoxon rank sum tests and the soft-clustering
    analyses, assigns the test subjects through the posterior probability and generates the figures reported in the manuscript
    (3D scatter of the posterior, boxcharts, median CGM profiles). Saves `gmm_model.mat` (the Gaussian Mixture model), `assignments.mat` (meal labels assigned by the GMM),
    `posterior.mat` (posterior probability of cluster membership).
 
-To reproduce the results reported in the manuscript: run 2->3. To use the trained GMM model to classify new meals: run 1 only.
+To reproduce the results reported in the manuscript: run 3->4. To use the trained GMM model to classify new meals: run 1 only.
 
 
  ### Functions
