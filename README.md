@@ -51,7 +51,7 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
 ### Example of function use
 ```matlab
 results = detectSAmeals("my_meals.csv"); % applies to "my_meals.csv" the GMM model, returns a table with assignment results
-results = detectSAmeals("my_meals.csv", OutputFile="my_assignments.csv"); % additionally saves the results in "my_assignments.csv"
+results = detectSAmeals("my_meals.csv",OutputFile="my_assignments.csv"); % additionally saves the results in "my_assignments.csv"
 results = detectSAmeals("my_meals.csv",PlotPosterior=true,PlotMixtures=true); % additionally plot posterior and 2D feature space overlayed to trained mixtures
 ```
 Note: Optional fields `PlotPosterior` and `PlotMixtures` require `PlotPosterior.m` and `PlotMixtures.m` to be inside `functions` folder.
