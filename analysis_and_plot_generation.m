@@ -184,7 +184,7 @@ xlim([-4 4]); ylim([-2 3]); zlim([-2 3])
 colormap(cmap)
 c2 = colorbar; 
 alpha(0.5)     % transparency of dots
-title('(a) Clustering Results','FontSize',14)
+title('(a) Clustering results','FontSize',14)
 grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -221,7 +221,7 @@ axis("square")
 
 ylabel('amount [g]')
 legend(b([idxFA idxSA]),{'FA','SA'})
-title('(b) Labelling Results','FontSize',14)
+title('(b) Labelling results','FontSize',14)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                (c) BOXCHART: FEATURE DISTRIBUTION (TRAINING)            %
@@ -276,7 +276,7 @@ ylim([-4 5])
 xlim([0.5 3.5]);
 ylabel('normalized value');
 legend(hBox([idxFA idxSA]),{'FA','SA'}, 'Location', 'south');
-title('(c) Feature Distributions','FontSize',14)
+title('(c) Feature distributions','FontSize',14)
 
 %% Not normalized features of interest (mean and SD of each cluster)
 parset_table_notNormalized = paramsTable_notNormalized(:,{'RaAUC120min','TGR50','d'});
@@ -353,7 +353,7 @@ xlabel('d','Interpreter','tex')
 
 colormap(cmap)
 c2 = colorbar; 
-title('(d) Estimated Posterior','FontSize',14)
+title('(d) Estimated posterior','FontSize',14)
 legend('Training','Test','Location','northwest')
 grid on
 
@@ -391,7 +391,7 @@ axis("square")
 
 ylabel('amount [g]')
 legend(b([idxFA idxSA]),{'FA','SA'})
-title('(e) Assigned Labels','FontSize',14)
+title('(e) Assigned labels','FontSize',14)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                  CGM PROFILES: TEST SET                                 %
