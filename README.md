@@ -45,10 +45,8 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
 | 3 | 0.74 | 55.9 | 0.35 |
 | 4 | 0.54 | 70.1 | 0.22 |
 | 5 | 0.66 | 48.0 | 0.001 |
-| 6 | 0.25 | 128.5 | 0.4 |
-| 6 | 0.88 | 70.6 | 0.36 |
 
-2. Call the function `detectSAmeals`.
+2. Call the function `detectSAmeals()`.
 
 ### Example of function use
 ```matlab
@@ -71,8 +69,7 @@ Note: data are normalized internally with the mean and SD of the training set us
 | 3 | 0.999784 | 0.000216 | FA | 0 |
 | 4 | 0.966883 | 0.033117 | FA | 0 |
 | 5 | 0.999963 | 0.000037 | FA | 0 |
-| 6 | 0.000024 | 0.999976 | SA | 0 |
-| 6 | 0.999968 | 0.000032 | FA | 0 |
+
 
 **About the model**: The model is a GMM with two components with diagonal shared covariance, and regularization 0.01. `gmm_model.mat` contains the fitted `gmdistribution` MATLAB object, the feature names, the training
 mean/SD used for normalization, the cluster indices and the uncertainty thresholds. It contains no participant data.
@@ -135,7 +132,7 @@ For `hyperparameter_tuning.m` and `analysis_and_plot_generation.m` the following
    expressed in grams.
 - `Dataset/`: one `.mat` file per meal, each with a struct `data` containing `t_CGM` (time grid, [min]) and `CGM` (CGM samples, [mg/dl]). Must contain data within 1 hour before the mealtime up to 4 hours after. `t_CGM` is centered around mealtime (i.e., `t_CGM(mealtime)=0`) The files must be in the same order as the rows of the CSV.
 
-## Reproducibility
+## About Reproducibility
 
 Random seeds are fixed with `rng(1)` for reproducibility across runs. 
 
