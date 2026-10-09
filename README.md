@@ -60,7 +60,7 @@ results = detectSAmeals("my_meals.csv",PlotPosterior=true,PlotMixtures=true); % 
 ```
 Note: Optional fields `PlotPosterior` and `PlotMixtures` require `PlotPosterior.m` and `PlotMixtures.m` to be inside `functions` folder.
 
-Note: `detectSAmeals()` assumes by default that `gmm_model.mat` is under the folder `model/`. If the GMM model is in another location, you can specify it using `ModelFile="path/to/model/gmm_model.mat`.
+Note: `detectSAmeals()` assumes by default that `gmm_model.mat` is under the folder `model/`. If the GMM model is in another location, you can specify it using `ModelFile="path/to/model/gmm_model.mat"`.
 
 ```matlab
 results = detectSAmeals("my_meals.csv",`ModelFile="path/to/model/gmm_model.mat`); % applies to "my_meals.csv" the GMM, specifying location of the trained GMM. Returns a table with assignment results
