@@ -51,7 +51,7 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
 | 4 | 0.54 | 70.1 | 0.22 |
 | 5 | 0.66 | 48.0 | 0.001 |
 
-2. Call the function `detectSAmeals()`. passing the csv containing 1 or more meals (e.g., `my_meals.csv`). Here are reported some examples:
+2. Call the function `detectSAmeals()`, passing the CSV (or MATLAB table) containing 1 or more meals (e.g., `my_meals.csv`). Here are reported some examples:
 
 ```matlab
 results = detectSAmeals("my_meals.csv"); % applies to "my_meals.csv" the GMM model, returns a table with assignment results
@@ -59,6 +59,12 @@ results = detectSAmeals("my_meals.csv",OutputFile="my_assignments.csv"); % addit
 results = detectSAmeals("my_meals.csv",PlotPosterior=true,PlotMixtures=true); % additionally plot posterior and 2D feature space overlayed to trained mixtures
 ```
 Note: Optional fields `PlotPosterior` and `PlotMixtures` require `PlotPosterior.m` and `PlotMixtures.m` to be inside `functions` folder.
+
+Note: `detectSAmeals()` assumes by default that `gmm_model.mat` is under the folder `model/`. If the GMM model is in another location, you can specify it using `ModelFile="path/to/model/gmm_model.mat`.
+
+```matlab
+results = detectSAmeals("my_meals.csv",`ModelFile="path/to/model/gmm_model.mat`); % applies to "my_meals.csv" the GMM, specifying location of the trained GMM. Returns a table with assignment results
+```
 
 **Output**: `results` contains one row per meal with `Posterior_FA`, `Posterior_SA`, `Label` (`FA` or `SA`, maximum posterior) and
 `Uncertain` (posterior of SA between 0.3 and 0.7). An example of output is reported below.
