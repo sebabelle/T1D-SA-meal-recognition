@@ -30,7 +30,7 @@ An example of **input file** (`example.csv`) and  **output file** (`assignment_r
 
 1. Open MATLAB in the repository folder.
 2. Run `apply_gmm.m`. By default it applies `gmm_model.mat` to `example.csv` through the function `detectSAmeals`.
-3. The script displays the results, saves them to `example_assignments.csv` inside the folder `example\` and plots the posterior probabilities
+3. The script displays the results, saves them to `example_assignments.csv` inside the folder `example/` and plots the posterior probabilities
    and the fitted mixture components together with the meals.
 
 ### Using your own data: 
