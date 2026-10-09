@@ -11,7 +11,8 @@ For more details see [Reproducibility Notes](https://github.com/sebabelle/T1D-SA
 
 ## Introduction 
 
-This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and the **MATLAB function** `detectSAmeals` to apply the model on new meals assigning them to a class: slow-absorption `SA` or fast-absorption `FA`.
+This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and the **MATLAB function** `detectSAmeals()` that allows to apply the GMM model on new meals. The functions assigns them to a class: slow-absorption (`SA`) or fast-absorption (`FA`) using three **model-based** features related to gastro-intestinal absorption.
+
 Part of this repository is dedicated to report the code used for **training and testing** of the **Gaussian mixture model**.
 
 **About the model**: The model is a GMM with two components with diagonal shared covariance, and regularization 0.01. `gmm_model.mat` contains the fitted `gmdistribution` MATLAB object, the feature names, the training
@@ -50,7 +51,7 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
 | 4 | 0.54 | 70.1 | 0.22 |
 | 5 | 0.66 | 48.0 | 0.001 |
 
-2. Call the function `detectSAmeals()`. Here are reported some examples:
+2. Call the function `detectSAmeals()`. passing the csv containing 1 or more meals (e.g., `my_meals.csv`) Here are reported some examples:
 
 ```matlab
 results = detectSAmeals("my_meals.csv"); % applies to "my_meals.csv" the GMM model, returns a table with assignment results
@@ -95,9 +96,9 @@ example/                            contains a small synthetic dataset ready to 
  
 README.md
 ```
-1. **`detectSAmeals.m`**: Function that applied the trained GMM to a new dataset. Loads `gmm_model.mat` and a CSV (or MATLAB table) of new meals, normalizes them with the training mean and SD,
+1. **`detectSAmeals.m`**: Function that allows to apply the trained GMM to a new dataset. Loads `gmm_model.mat` and a CSV (or MATLAB table) of new meals, normalizes them with the training mean and SD,
    and returns the posterior probabilities, the label (`FA` / `SA`) and an `Uncertain` flag (posterior of SA within
-   0.3-0.7). Optionally `PlotPosterior` and `PlotMixtures`plot the estimated posterior onto the 3D feature space and plots the fitted mixture components (1-2 SD contours) with the new meals. Optionally, results can be saved as CSV.
+   0.3-0.7). Optional fields: `PlotPosterior` and `PlotMixtures`plot the estimated posterior onto the 3D feature space and plots the fitted mixture components (1-2 SD contours) with the new meals. Results can be saved as CSV if specified.
 2. **`apply_gmm.m`**: Reports an example of usage of the function `detectSAmeals.m`
 3. **`hyperparameter_tuning.m`**: Performs subject-level hold-out split (70% training / 30% test), then a
    beam-search forward feature selection on the training set based on a unsupervised subject-wise 5-fold CV procedure. Each candidate feature set is scored as the best, over
