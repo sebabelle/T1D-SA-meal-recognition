@@ -41,6 +41,7 @@ An example of **input file** (`example.csv`) and  **output file** (`assignment_r
 | `RaAUC120min`, `TGR50`, `d` | Clustering features, **not normalized**, computed as in the manuscript |
 | `ID` | Subject identifier (Optional) |
 
+#### my_meals.csv
 | ID | RaAUC120min | TGR50 | d |
 | ---: | ---: | ---: | ---: |
 | 1 | 0.31 | 130.1 | 0.24 |
@@ -65,6 +66,7 @@ Note: `detectSAmeals()` assumes by default that `gmm_model.mat` is under the fol
 ```matlab
 results = detectSAmeals("my_meals.csv",ModelFile="path/to/model/gmm_model.mat"); % applies to "my_meals.csv" the GMM, specifying location of the trained GMM. Returns a table with assignment results
 ```
+3. Analyse the results: assigned labels, posterior estimation and, optionally, supporting plots.
 
 **Output**: `results` contains one row per meal with `Posterior_FA`, `Posterior_SA`, `Label` (`FA` or `SA`, maximum posterior) and
 `Uncertain` (posterior of SA between 0.3 and 0.7). An example of output is reported below.
@@ -77,6 +79,7 @@ Note: data are normalized internally with the mean and SD of the training set us
 | `Uncertaine` | Flag that return wheter posterior is uncertain (>0.3 & <0.7) |
 | `ID` | Subject identifier (Optional) |
 
+#### results.mat
 | ID | Posterior_FA | Posterior_SA | Label | Uncertain |
 | ---: | ---: | ---: | :---: | ---: |
 | 1 | 0.000333 | 0.999667 | SA | 0 |
