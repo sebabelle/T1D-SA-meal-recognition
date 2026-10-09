@@ -51,7 +51,7 @@ An **example input file** (`example.csv`) is inside the folder `example\`.
 | 4 | 0.54 | 70.1 | 0.22 |
 | 5 | 0.66 | 48.0 | 0.001 |
 
-2. Call the function `detectSAmeals()`. passing the csv containing 1 or more meals (e.g., `my_meals.csv`) Here are reported some examples:
+2. Call the function `detectSAmeals()`. passing the csv containing 1 or more meals (e.g., `my_meals.csv`). Here are reported some examples:
 
 ```matlab
 results = detectSAmeals("my_meals.csv"); % applies to "my_meals.csv" the GMM model, returns a table with assignment results
