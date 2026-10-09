@@ -11,7 +11,7 @@ For more details see [Reproducibility Notes](https://github.com/sebabelle/T1D-SA
 
 ## Introduction 
 
-This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model\` and the **MATLAB function** `detectSAmeals()` that allows to apply the GMM model on new meals. The functions assigns them to a class: slow-absorption (`SA`) or fast-absorption (`FA`) using three **model-based** features related to gastro-intestinal absorption.
+This repository provides the **trained Gaussian mixture model** (`gmm_model.mat`) inside the folder `model/` and the **MATLAB function** `detectSAmeals()` that allows to apply the GMM model on new meals. The functions assigns them to a class: slow-absorption (`SA`) or fast-absorption (`FA`) using three **model-based** features related to gastro-intestinal absorption.
 
 **About the model**: The model is a GMM with two components with diagonal shared covariance, and regularization 0.01. `gmm_model.mat` contains the fitted `gmdistribution` MATLAB object, the feature names, the training
 mean/SD used for normalization, the cluster indices and the uncertainty thresholds. It contains no training data.
@@ -24,7 +24,7 @@ For a full description of the repository and its files see [Repository Structure
 ## How to use the model and example of usage
 
 
-An **example input file** (`example.csv`) is inside the folder `example\`.
+An example of **input file** (`example.csv`) and  **output file** (`assignment_results.csv`) is inside the folder `example/`.
 
 ### Quick start with the example:
 
