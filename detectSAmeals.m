@@ -11,7 +11,7 @@ function results = detectSAmeals(data,options)
 % data: path of a CSV file or a table, one row per meal, with the (not
 %       normalized) columns RaAUC120min, TGR50, d. An "ID" column is optional.
 % OPTIONAL 
-% ModelFile: trained model (default: gmm_model.mat in the folder of this function)
+% ModelFile: trained model (default: gmm_model.mat is inside the folder model/ in the current working directory)
 % OutputFile: if given, the results are saved as CSV
 % PlotPosterior: 3D scatter of the meals colored by posterior FA (default false)
 % PlotMixtures: fitted mixture components with the meals on top (default false)
