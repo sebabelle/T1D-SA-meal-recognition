@@ -5,7 +5,7 @@ function [] = MacronutrientsSumRankTest(macronutrientsMatrix,idxk)
 % ATTENTION: designed for a 2-cluster solution.
 
 arguments (Input)
-    macronutrientsMatrix % #observations x 4 matrix [Fat Prot Carb Sum_Fat_Prot]
+    macronutrientsMatrix % #observations x 2 matrix [Fat Prot]
     idxk % cluster assignment
 end
 
