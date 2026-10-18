@@ -1,7 +1,6 @@
 function [] = MacronutrientsSumRankTest(macronutrientsMatrix,idxk)
 %MACRONUTRIENTSSUMRANKTEST performs the Wilcoxon rank sum test between
-%cluster 1 and cluster 2 for: Fat, Protein, Carbohydrates, Sum of Fat and
-%Protein
+%cluster 1 and cluster 2 for: Fat and Protein
 % ATTENTION: designed for a 2-cluster solution.
 
 arguments (Input)
