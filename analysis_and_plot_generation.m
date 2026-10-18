@@ -9,6 +9,7 @@
 clear all, close all, clc
 
 addpath("functions")
+warning('off')
 
 paramsTable_notNormalized = readtable("PARAMETERS_notNormalized.csv");
 paramsTable_notNormalized = paramsTable_notNormalized(:,[6 8 10:34]);
@@ -68,13 +69,15 @@ rng(1)
 
 %% finding best number of clusters
 [n_clust, meanS, sdS] = gmm_bestk(parset,6);
+disp(['Best number of clusters: ' num2str(n_clust)])
+disp(' ')
 
 rng(1)
 % n_clust = 2; % uncomment to override the gmm_bestk decision
 
-%% Performing unsupervised CV-accuracy
+%% Performing unsupervised CV-agreement
 parset_prediction = cv_gm_with_SD(fullTABLE_notNormalized,str,n_clust,parset_notNormalized);
-% mean CV accuracy of fat and protein
+% mean CV agreement of fat and protein
 meanCV = mean(table2array(parset_prediction([1 2],2)));
 %%
 
@@ -84,6 +87,7 @@ gm_dist = fitgmdist(parset,n_clust, ...
 idxk_train = cluster(gm_dist,parset); % identifying clusters
 
 %% finding most important features according to Mahalanobis
+disp('Feature importance ranking: ')
 mahalanobisDistance(gm_dist,paramsTable,parset_indeces);
 %%
 
@@ -96,10 +100,17 @@ mahalanobisDistance(gm_dist,paramsTable,parset_indeces);
 %% Computing entropy
 p = gm_dist.ComponentProportion;
 entropy = -sum(p.*log2(p))/log2(n_clust);
+disp('---------------------')
+disp(['Entropy: ' num2str(entropy)])
 %%
 
-%% Computing entropy-weighted CV accuracy
+%% Computing entropy-weighted CV agreement
 wCV = entropy*meanCV;
+disp(['Entropy weighted CV: ' num2str(wCV)])
+disp('---------------------')
+
+disp('Press any key to continue')
+pause()
 %%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -184,7 +195,7 @@ xlim([-4 4]); ylim([-2 3]); zlim([-2 3])
 colormap(cmap)
 c2 = colorbar; 
 alpha(0.5)     % transparency of dots
-title('(a) Clustering results','FontSize',14)
+title('(a) \rm Clustering results','FontSize',14)
 grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -221,7 +232,7 @@ axis("square")
 
 ylabel('amount [g]')
 legend(b([idxFA idxSA]),{'FA','SA'})
-title('(b) Labelling results','FontSize',14)
+title('(b) \rm Labelling results','FontSize',14)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                (c) BOXCHART: FEATURE DISTRIBUTION (TRAINING)            %
@@ -276,7 +287,7 @@ ylim([-4 5])
 xlim([0.5 3.5]);
 ylabel('normalized value');
 legend(hBox([idxFA idxSA]),{'FA','SA'}, 'Location', 'south');
-title('(c) Feature distributions','FontSize',14)
+title('(c) \rm Feature distributions','FontSize',14)
 
 %% Not normalized features of interest (mean and SD of each cluster)
 parset_table_notNormalized = paramsTable_notNormalized(:,{'RaAUC120min','TGR50','d'});
@@ -353,7 +364,7 @@ xlabel('d','Interpreter','tex')
 
 colormap(cmap)
 c2 = colorbar; 
-title('(d) Estimated posterior','FontSize',14)
+title('(d) \rm Estimated posterior','FontSize',14)
 legend('Training','Test','Location','northwest')
 grid on
 
@@ -391,7 +402,7 @@ axis("square")
 
 ylabel('amount [g]')
 legend(b([idxFA idxSA]),{'FA','SA'})
-title('(e) Assigned labels','FontSize',14)
+title('(e) \rm Assigned labels','FontSize',14)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                  CGM PROFILES: TEST SET                                 %
@@ -444,9 +455,10 @@ post(idxTest,:) = testPost;
 save posterior.mat post -mat
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                          LOCAL FUNCTIONS                                %
+%                          SUPPORT FUNCTIONS                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Plot IQR and median bands
 function plotMedianCGM(t_grid,m_SA,l_p_SA,u_p_SA,m_FA,l_p_FA,u_p_FA,orange,blue)
     % Median CGM profile (and 25th-75th percentile band) of cluster SA and FA
     figure
