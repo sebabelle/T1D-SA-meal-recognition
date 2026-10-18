@@ -244,12 +244,13 @@ disp(['NMI between h-clust and gmm: ' num2str(computeNMI(idxk_h,p_h,idxk_gmm,p_g
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                          LOCAL FUNCTIONS                                %
+%                          SUPPORT FUNCTIONS                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% evaluates kmeans gmm and h-clust hyperparameters
 function [score, alg, bestk_out] = evaluateSet(idx, params, params_notNormalized, fullTABLE)
     % Score of a feature set = best (over k-means, GMM, H-clust) of
-    % CV accuracy x normalized cluster-size entropy.
+    % CV agreement x normalized cluster-size entropy.
     str = {'Fat_amt','Prot_amt'};
     parset = params(:,idx);
     parset_notNormalized = params_notNormalized(:,idx);
@@ -292,7 +293,7 @@ function [score, alg, bestk_out] = evaluateSet(idx, params, params_notNormalized
     bestk_out = ks(a);
 end
 
-
+% computes NMI
 function NMI = computeNMI(assignments_C1, proportions_C1, assignments_C2, proportions_C2)
     % Normalized mutual information (geometric-mean normalization) between
     % two clusterings, given their assignments and cluster proportions.
