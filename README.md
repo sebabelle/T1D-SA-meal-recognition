@@ -76,7 +76,7 @@ Note: data are normalized internally with the mean and SD of the training set us
 |---|---|
 | `Posterior_FA`, `Posterior_SA` | Estimated posterior of cluster assignment (`FA` and `SA`) |
 | `Label` | Meal assigned label (`FA` or `SA`) |
-| `Uncertaine` | Flag that return wheter posterior is uncertain (>0.3 & <0.7) |
+| `Uncertain` | Flag that return wheter posterior is uncertain (>0.3 & <0.7) |
 | `ID` | Subject identifier (Optional) |
 
 #### results.mat
