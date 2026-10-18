@@ -8,7 +8,7 @@ function prediction_performance = cv_gm_with_SD(fullTABLE,str,bestk,params)
 % params: matrix of the (not normalized) parameters used for clustering
 % OUTPUT:
 % prediction_performance: table with, for each macronutrient, the mean
-% prediction accuracy (fraction) and the SD of the fold accuracies (%)
+% prediction agreement (fraction) and the SD of the fold accuracies (%)
 
 %% creating reference clustering
 rng(1)
@@ -34,8 +34,8 @@ cv = cvpartition(length(uniqueID),'Kfold',5);
 % sum of the correct assignments over all folds
 tmp_sum = zeros(length(str),1);
 
-% accuracy of each fold
-fold_accuracy = zeros(5,length(str));
+% agreement of each fold
+fold_agreement = zeros(5,length(str));
 
 for fold = 1:5 % for each fold
     % training and test indices of the current fold
@@ -75,31 +75,31 @@ for fold = 1:5 % for each fold
         % correct predictions of the current fold
         currSum(macronutrient,:) = sum(newIdxRef(currTestIdx) == newAssignedIdx);
         tmp_sum(macronutrient,:) = tmp_sum(macronutrient,:) + currSum(macronutrient,:);
-        fold_accuracy(fold,macronutrient) = (currSum(macronutrient,:)/size(currTestSet,1))*100; 
+        fold_agreement(fold,macronutrient) = (currSum(macronutrient,:)/size(currTestSet,1))*100; 
     end
 
     %% displaying current fold prediction
     disp(['Analysing Fold n.' num2str(fold) '| Observations correctly assigned: '])
     for mm = 1:length(str)
-        disp([ str{mm} ': ' num2str(currSum(mm))  ' out of ' num2str(length(currTestSet)) ' | Fold Acc. ' num2str(fold_accuracy(fold,mm)) '%'])
+        disp([ str{mm} ': ' num2str(currSum(mm))  ' out of ' num2str(length(currTestSet)) ' | Fold Agreement ' num2str(fold_agreement(fold,mm)) '%'])
     end
     disp(' ------ ')
 end
 
 %% Creating prediction table
 prediction_performance = tmp_sum./length(idxRef);
-std_dev_performance = std(fold_accuracy, 0, 1)';
+std_dev_performance = std(fold_agreement, 0, 1)';
 
 %% displaying prediction performance
 disp('--- RESULTS ---')
 for mm = 1:length(str)
-    disp(['Prediction accuracy for ' str{mm} ': ' num2str(prediction_performance(mm)*100) '% | SD: ' num2str(std_dev_performance(mm))])
+    disp(['Prediction agreement for ' str{mm} ': ' num2str(prediction_performance(mm)*100) '% | SD: ' num2str(std_dev_performance(mm))])
 end
 
 disp(' ')
 disp('Press any key to continue')
 pause()
 
-prediction_performance = table(str,prediction_performance,std_dev_performance,'VariableNames',{'Macronutrient type','Mean Prediction Accuracy','Standard Deviation'});
+prediction_performance = table(str,prediction_performance,std_dev_performance,'VariableNames',{'Macronutrient type','Mean Prediction agreement','Standard Deviation'});
 
 end
