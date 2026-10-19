@@ -1,4 +1,4 @@
-function [prediction_performance] = cv_kmeans(fullTABLE,str,bestk,params)
+function [agreement] = cv_kmeans(fullTABLE,str,bestk,params)
 % CV_KMEANS performs 5-fold subject-level cross-validation of the k-means
 % clustering using k = bestk and the parameters in params.
 % A reference clustering is computed on all the data; in each fold k-means
@@ -10,7 +10,7 @@ function [prediction_performance] = cv_kmeans(fullTABLE,str,bestk,params)
 % bestk: number of clusters
 % params: matrix of the (not normalized) parameters used for clustering
 % OUTPUT:
-% prediction_performance: #macronutrients x 1 fraction of test observations
+% agreement: #macronutrients x 1 fraction of test observations
 % assigned to the same (ordered) cluster as in the reference clustering
 
 %% creating reference clustering
@@ -30,7 +30,7 @@ ID = table2array(fullTABLE(:,"ID"));
 uniqueID = unique(ID);
 cv = cvpartition(length(uniqueID),'Kfold',5);
 
-% sum of the correct assignments over all folds
+% sum of the assignments in agreement with the reference clustering over all folds
 tmp_sum = zeros(length(str),1);
 
 for fold = 1:5 % for each fold
@@ -67,12 +67,12 @@ for fold = 1:5 % for each fold
             newIdxRef(idxRef == orderRef(macronutrient,kk)) = kk;
             newAssignedIdx(assignedIdx == orderCV(macronutrient,kk)) = kk;
         end
-        % correct predictions of the current fold
+        % assignments in agreement with the reference clustering in the current fold
         currSum(macronutrient,:) = sum(newIdxRef(currTestIdx) == newAssignedIdx);
         tmp_sum(macronutrient,:) = tmp_sum(macronutrient,:) + currSum(macronutrient,:);
     end
 end
 
-prediction_performance = tmp_sum./length(idxRef);
+agreement = tmp_sum./length(idxRef);
 
 end
