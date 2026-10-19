@@ -72,9 +72,9 @@ path_size = []; path_features = {}; path_score = []; path_alg = {}; path_k = [];
 for step = 1:maxFeatures
 
     % --- expand every set in the beam with every missing feature ---------
-    C = zeros(0,step);
-    for b = 1:size(beam,1)
-        base = beam(b,:);
+    C = [];
+    for bb = 1:size(beam,1)
+        base = beam(bb,:);
         for f = setdiff(1:Nfeatures, base)
             C(end+1,:) = sort([base f]); %#ok<SAGROW>
         end
@@ -87,16 +87,16 @@ for step = 1:maxFeatures
     cand_alg   = cell(nCand,1);
     cand_k     = zeros(nCand,1);
 
-    for c = 1:nCand  
-        [cand_score(c), cand_alg{c}, cand_k(c)] = ...
-            evaluateSet(C(c,:), params, params_notNormalized, fullTABLE);
+    for curr_cand = 1:nCand  
+        [cand_score(curr_cand), cand_alg{curr_cand}, cand_k(curr_cand)] = ...
+            evaluateSet(C(curr_cand,:), params, params_notNormalized, fullTABLE);
     end
 
     % --- keep the best sets ----------------------------------------------
     [cand_score, order] = sort(cand_score,'descend');
     C = C(order,:); cand_alg = cand_alg(order); cand_k = cand_k(order);
-    nKeep = min(beamWidth, nCand);
-    beam = C(1:nKeep,:);
+    nKeep = min(beamWidth, nCand); % number of feature sets allowed
+    beam = C(1:nKeep,:); % new beam
 
     % storing best score and best set at current step
     step_score = cand_score(1);
@@ -110,8 +110,8 @@ for step = 1:maxFeatures
     path_k(end+1)        = cand_k(1);                         %#ok<SAGROW>
 
     % --- improvement check against the current best set -------------
-    if step_score > best_score * (1 + minRelImprovement)
-        best_score = step_score;
+    if step_score > best_score * (1 + minRelImprovement) % if improvement is large enough
+        best_score = step_score; % new best score found
         best_features_by_score = step_set;
         best_alg = cand_alg{1};
         best_bestk = cand_k(1);
@@ -119,15 +119,15 @@ for step = 1:maxFeatures
         best_beam_scores = cand_score(1:nKeep);
         stall = 0;
         status = 'improved';
-    else
-        stall = stall + 1;
+    else % improvement not recorded
+        stall = stall + 1; 
         status = sprintf('no improvement (%d/%d)', stall, patience);
     end
 
     fprintf('\nStep %d | top score %.4f | %s\n', step, step_score, status);
-    for b = 1:nKeep
-        fprintf('   #%d  %.4f  [%s, k=%d]  %s\n', b, cand_score(b), cand_alg{b}, cand_k(b), ...
-            strjoin(parNames(beam(b,:)), ', '));
+    for kk = 1:nKeep
+        fprintf('   #%d  %.4f  [%s, k=%d]  %s\n', kk, cand_score(kk), cand_alg{kk}, cand_k(kk), ...
+            strjoin(parNames(beam(kk,:)), ', '));
     end
 
     % --- stopping rules --------------------------------------------------
@@ -141,7 +141,7 @@ for step = 1:maxFeatures
         break
     end
     if stall > patience
-        disp('Stop: patience exhausted (no relative improvement > threshold)')
+        disp('Stop: patience limit (no relative improvement > threshold)')
         break
     end
 end
@@ -155,8 +155,8 @@ pathTable = table(path_size', path_features', path_score', path_alg', path_k', .
     'VariableNames',{'Size','TopSet','Score','BestAlgorithm','K'})
 
 disp('Ranking of best sets found:')
-for b = 1:size(best_beam_sets,1)
-    fprintf('   #%d  %.4f  %s\n', b, best_beam_scores(b), strjoin(parNames(best_beam_sets(b,:)), ', '));
+for curr_rank = 1:size(best_beam_sets,1)
+    fprintf('   #%d  %.4f  %s\n', curr_rank, best_beam_scores(curr_rank), strjoin(parNames(best_beam_sets(curr_rank,:)), ', '));
 end
 
 
