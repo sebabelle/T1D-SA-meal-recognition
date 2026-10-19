@@ -43,7 +43,7 @@ fullTABLE = normalize(fullTABLE_notNormalized,"zscore");
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%           GAUSSIAN MIXTURES WITH FEW PARAMETERS                         %
+%           GAUSSIAN MIXTURES WITH SET OF PARAMETERS                      %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 clc
 disp(' --------- Clustering with set of params ---------')
@@ -76,9 +76,9 @@ rng(1)
 % n_clust = 2; % uncomment to override the gmm_bestk decision
 
 %% Performing unsupervised CV-agreement
-parset_prediction = cv_gm_with_SD(fullTABLE_notNormalized,str,n_clust,parset_notNormalized);
+parset_agreement = cv_gm_with_SD(fullTABLE_notNormalized,str,n_clust,parset_notNormalized);
 % mean CV agreement of fat and protein
-meanCV = mean(table2array(parset_prediction([1 2],2)));
+meanCV = mean(table2array(parset_agreement([1 2],2)));
 %%
 
 % performing clustering
