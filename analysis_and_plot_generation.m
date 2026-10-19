@@ -57,7 +57,7 @@ parNames
 
 % Extract parameters indeces
 allNames = paramsTable_notNormalized.Properties.VariableNames;
-[tf, parset_indeces] = ismember(parNames, allNames);
+[~, parset_indeces] = ismember(parNames, allNames);
 
 % extracting parameters in a matrix
 params_notNormalized = table2array(paramsTable_notNormalized);
