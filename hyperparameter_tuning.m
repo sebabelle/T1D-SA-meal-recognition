@@ -175,12 +175,12 @@ rng(1)
 [~, bestk,meanS,sdS] = kmeans_bestk(parset);
 rng(1)
 idxk_kmeans = kmeans(parset,bestk,"Replicates",5,"Distance","sqeuclidean",'Display','off',MaxIter=1e4);
-parset_prediction = cv_kmeans_with_SD(fullTABLE,{'Fat_amt';'Prot_amt'},bestk,parset_notNormalized);
+parset_agreement = cv_kmeans_with_SD(fullTABLE,{'Fat_amt';'Prot_amt'},bestk,parset_notNormalized);
 counts = histcounts(idxk_kmeans,1:bestk+1);
 p_kmeans = counts/sum(counts);
 entropy = -sum(p_kmeans.*log2(p_kmeans))/log2(bestk);
-k_means_score = mean(table2array(parset_prediction([1 2],2)))*entropy;
-mc_agreement = mean(table2array(parset_prediction([1 2], 2)));
+k_means_score = mean(table2array(parset_agreement([1 2],2)))*entropy;
+mc_agreement = mean(table2array(parset_agreement([1 2], 2)));
 
 fprintf('\n=== Clustering Summary ===\n');
 fprintf('  %-18s %8.4f\n', 'MC-rank agreement:', mc_agreement);
@@ -195,7 +195,7 @@ clc
 %% ======================= GMM ======================== %%
 disp('===================== GMM =======================')
 [bestk,meanS,sdS] = gmm_bestk(parset,6);
-parset_prediction = cv_gm_with_SD(fullTABLE,{'Fat_amt';'Prot_amt'},bestk,parset_notNormalized);
+parset_agreement = cv_gm_with_SD(fullTABLE,{'Fat_amt';'Prot_amt'},bestk,parset_notNormalized);
 curr_gm_dist = fitgmdist(parset,bestk, ...
     'RegularizationValue',0.01,'CovarianceType','diagonal','SharedCovariance',true);
 % hard-assignment based on the gaussian component with the maximum posterior
@@ -203,8 +203,8 @@ post = posterior(curr_gm_dist,parset);
 [~,idxk_gmm] = max(post,[],2);
 p_gmm = curr_gm_dist.ComponentProportion;
 entropy = -sum(p_gmm.*log2(p_gmm))/log2(bestk);
-gmm_score = mean(table2array(parset_prediction([1 2],2)))*entropy;
-mc_agreement = mean(table2array(parset_prediction([1 2], 2)));
+gmm_score = mean(table2array(parset_agreement([1 2],2)))*entropy;
+mc_agreement = mean(table2array(parset_agreement([1 2], 2)));
 
 fprintf('\n=== Clustering Summary ===\n');
 fprintf('  %-18s %8.4f\n', 'MC-rank agreement:', mc_agreement);
@@ -220,12 +220,12 @@ disp('===================== H-clust =======================')
 [~, bestk, meanS, sdS] = hclust_bestk(parset);
 h = linkage(parset,"ward");
 idxk_h = cluster(h,"maxclust",bestk);
-parset_prediction = cv_hclust_with_SD(fullTABLE,{'Fat_amt';'Prot_amt'},bestk,parset_notNormalized);
+parset_agreement = cv_hclust_with_SD(fullTABLE,{'Fat_amt';'Prot_amt'},bestk,parset_notNormalized);
 counts = histcounts(idxk_h,1:bestk+1);
 p_h = counts/sum(counts);
 entropy = -sum(p_h.*log2(p_h))/log2(bestk);
-h_score = mean(table2array(parset_prediction([1 2],2)))*entropy;
-mc_agreement = mean(table2array(parset_prediction([1 2], 2)));
+h_score = mean(table2array(parset_agreement([1 2],2)))*entropy;
+mc_agreement = mean(table2array(parset_agreement([1 2], 2)));
 
 fprintf('\n=== Clustering Summary ===\n');
 fprintf('  %-18s %8.4f\n', 'MC-rank agreement:', mc_agreement);
