@@ -64,7 +64,7 @@ best_score = 0;
 best_features_by_score = []; % indeces of best feature set
 best_alg = ''; best_bestk = NaN; 
 best_beam_sets = []; best_beam_scores = [];   % book-keeping the beam at the best score 
-stall = 0;                  % consecutive steps without improvement
+counter_patience = 0;                  % consecutive steps without improvement
 
 % auxiliary variables for beam search hyperparameters decision process
 path_size = []; path_features = {}; path_score = []; path_alg = {}; path_k = [];
@@ -117,11 +117,11 @@ for step = 1:maxFeatures
         best_bestk = cand_k(1);
         best_beam_sets = beam;
         best_beam_scores = cand_score(1:nKeep);
-        stall = 0;
+        counter_patience = 0;
         status = 'improved';
     else % improvement not recorded
-        stall = stall + 1; 
-        status = sprintf('no improvement (%d/%d)', stall, patience);
+        counter_patience = counter_patience + 1; 
+        status = sprintf('no improvement (%d/%d)', counter_patience, patience);
     end
 
     fprintf('\nStep %d | top score %.4f | %s\n', step, step_score, status);
@@ -140,7 +140,7 @@ for step = 1:maxFeatures
         disp('Stop: score ceiling reached')
         break
     end
-    if stall > patience
+    if counter_patience > patience
         disp('Stop: patience limit (no relative improvement > threshold)')
         break
     end
@@ -164,7 +164,7 @@ end
 parset_notNormalized = params_notNormalized(:,best_features_by_score);
 parset = params(:,best_features_by_score);
 
-disp('Press any button to analyze CV with the best feature set')
+disp('Press any button to analyse CV with the best feature set')
 pause()
 clc
 
